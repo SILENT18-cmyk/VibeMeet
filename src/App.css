@@ -1,0 +1,190 @@
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  color: #ffffff;
+  background: #080611;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+button {
+  font: inherit;
+}
+
+.welcome-page {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 28px 20px;
+  background:
+    radial-gradient(circle at 15% 20%, rgba(166, 74, 255, 0.22), transparent 32%),
+    radial-gradient(circle at 85% 80%, rgba(255, 64, 143, 0.18), transparent 35%),
+    linear-gradient(145deg, #090613 0%, #110a1d 50%, #080611 100%);
+}
+
+.welcome-card {
+  position: relative;
+  z-index: 2;
+  width: min(100%, 460px);
+  text-align: center;
+}
+
+.logo {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.logo-heart {
+  width: 76px;
+  height: 76px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 24px;
+  color: #ffffff;
+  background: linear-gradient(135deg, #ff4d9d, #8b5cf6);
+  box-shadow:
+    0 18px 45px rgba(255, 77, 157, 0.25),
+    0 0 0 8px rgba(255, 255, 255, 0.035);
+  transform: rotate(-3deg);
+}
+
+.badge {
+  width: fit-content;
+  margin: 0 auto 18px;
+  padding: 8px 13px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.045);
+  color: #d9cfea;
+  font-size: 13px;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(42px, 11vw, 64px);
+  line-height: 0.98;
+  letter-spacing: -2.8px;
+  font-weight: 800;
+}
+
+h1 span {
+  display: block;
+  margin-top: 8px;
+  background: linear-gradient(90deg, #ff70b5, #a77bff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.subtitle {
+  max-width: 390px;
+  margin: 22px auto 30px;
+  color: #aaa3b8;
+  font-size: 16px;
+  line-height: 1.65;
+}
+
+.actions {
+  display: grid;
+  gap: 12px;
+}
+
+.primary-button,
+.secondary-button {
+  width: 100%;
+  min-height: 56px;
+  border-radius: 17px;
+  border: 0;
+  cursor: pointer;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.primary-button {
+  color: white;
+  font-weight: 750;
+  background: linear-gradient(100deg, #ff4d9d, #8b5cf6);
+  box-shadow: 0 15px 35px rgba(139, 92, 246, 0.2);
+}
+
+.secondary-button {
+  color: #eee9f5;
+  font-weight: 650;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.045);
+}
+
+.primary-button:hover,
+.secondary-button:hover {
+  transform: translateY(-2px);
+}
+
+.primary-button:active,
+.secondary-button:active {
+  transform: scale(0.98);
+}
+
+.terms {
+  margin: 20px auto 0;
+  max-width: 330px;
+  color: #716b7d;
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+.glow {
+  position: absolute;
+  z-index: 1;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  filter: blur(70px);
+  pointer-events: none;
+}
+
+.glow-one {
+  top: -90px;
+  left: -80px;
+  background: rgba(139, 92, 246, 0.18);
+}
+
+.glow-two {
+  right: -80px;
+  bottom: -100px;
+  background: rgba(255, 77, 157, 0.14);
+}
+
+@media (max-width: 480px) {
+  .welcome-page {
+    padding: 24px 18px;
+  }
+
+  .logo-heart {
+    width: 68px;
+    height: 68px;
+    border-radius: 21px;
+  }
+
+  h1 {
+    font-size: 46px;
+  }
+
+  .subtitle {
+    font-size: 15px;
+  }
+}
