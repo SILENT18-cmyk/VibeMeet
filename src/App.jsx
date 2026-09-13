@@ -64,13 +64,7 @@ const { data, error } = await supabase.auth.signUp({
   }
 
 alert("VibeMeet account created successfully! ❤️");
-
-  if (profileError) {
-    alert("Account created, but profile could not be saved: " + profileError.message);
-    return;
-  }
-
-  alert("VibeMeet account created successfully! ❤️");
+  setSignupStep(3);
 };
 
 
