@@ -98,7 +98,7 @@ function HomeScreen() {
 }
 
 function App() {
-  const [screen, setScreen] = useState("welcome");
+  const [screen, setScreen] = useState(() => localStorage.getItem("vibemeet_screen") || "welcome");
   const [signupStep, setSignupStep] = useState(1);
 
 const [form, setForm] = useState({
@@ -197,7 +197,7 @@ alert("VibeMeet account created successfully! ❤️");
           <div className="actions">
             <button
               className="primary-button"
-              onClick={() => setScreen("signup")}
+              onClick={() => { localStorage.removeItem("vibemeet_screen"); setScreen("signup"); setSignupStep(1); }}
             >
               Create account
             </button>
@@ -421,7 +421,7 @@ return (
 
             <button
               className="continue-button"
-              onClick={() => { alert("HOME BUTTON WORKED"); setScreen("home"); }}
+              onClick={() => { localStorage.setItem("vibemeet_screen", "home"); setScreen("home"); }}
             >
               Finish
               <Heart size={20} fill="currentColor" />
