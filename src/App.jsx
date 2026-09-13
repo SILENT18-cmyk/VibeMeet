@@ -211,7 +211,7 @@ return (
             </button>
           </div>
         </>
-      ) : (
+      ) : signupStep === 2 ? (
         <>
           <div className="signup-header">
             <div className="small-logo">
@@ -255,6 +255,78 @@ return (
             >
               Create account
               <ArrowRight size={20} />
+            </button>
+          </div>
+        </>
+      ) : signupStep === 3 ? (
+        <>
+          <div className="signup-header">
+            <div className="small-logo">
+              <Heart size={24} fill="currentColor" />
+            </div>
+
+            <p className="step-text">Step 3 of 4</p>
+
+            <h1>Add your profile photo.</h1>
+
+            <p>
+              Let people see the real you. You can add your photo now
+              or skip this step and add one later.
+            </p>
+          </div>
+
+          <div className="form">
+            <div className="photo-placeholder">
+              <Heart size={42} />
+            </div>
+
+            <button
+              className="continue-button"
+              onClick={() => setSignupStep(4)}
+            >
+              Continue
+              <ArrowRight size={20} />
+            </button>
+
+            <button
+              className="secondary-button"
+              onClick={() => setSignupStep(4)}
+            >
+              Skip for now
+            </button>
+          </div>
+        </>
+      ) : (
+        <>
+          <div className="signup-header">
+            <div className="small-logo">
+              <Heart size={24} fill="currentColor" />
+            </div>
+
+            <p className="step-text">Step 4 of 4</p>
+
+            <h1>Tell us about you.</h1>
+
+            <p>
+              Add a little about yourself so people can get to know
+              your vibe.
+            </p>
+          </div>
+
+          <div className="form">
+            <label>About you</label>
+
+            <textarea
+              placeholder="Write something about yourself..."
+              rows="5"
+            />
+
+            <button
+              className="continue-button"
+              onClick={() => setScreen("welcome")}
+            >
+              Finish
+              <Heart size={20} fill="currentColor" />
             </button>
           </div>
         </>
