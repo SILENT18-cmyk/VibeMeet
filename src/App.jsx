@@ -421,7 +421,7 @@ return (
 
             <button
               className="continue-button"
-              onClick={() => setScreen("home")}
+              onClick={() => { alert("HOME BUTTON WORKED"); setScreen("home"); }}
             >
               Finish
               <Heart size={20} fill="currentColor" />
