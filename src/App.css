@@ -392,3 +392,217 @@ input {
     font-size: 38px;
   }
 }
+
+/* =========================
+   VIBEMEET HOME
+========================= */
+
+.home-page {
+  min-height: 100vh;
+  min-height: 100dvh;
+  position: relative;
+  overflow-x: hidden;
+  padding: 24px 18px 100px;
+  background:
+    radial-gradient(circle at 90% 0%, rgba(153, 72, 255, 0.22), transparent 32%),
+    radial-gradient(circle at 0% 45%, rgba(255, 40, 150, 0.12), transparent 30%),
+    #090612;
+}
+
+.home-container {
+  width: min(100%, 620px);
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+.home-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.home-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.home-brand-icon {
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  color: white;
+  background: linear-gradient(135deg, #ff3f9f, #9858ff);
+  box-shadow: 0 10px 28px rgba(190, 50, 240, 0.25);
+}
+
+.home-brand-name {
+  font-size: 21px;
+  font-weight: 800;
+}
+
+.home-icon-button {
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgba(255,255,255,0.09);
+  border-radius: 14px;
+  color: white;
+  background: rgba(255,255,255,0.055);
+}
+
+.home-heading {
+  margin-bottom: 20px;
+}
+
+.home-heading p {
+  margin: 0 0 6px;
+  color: #a9a0b5;
+  font-size: 14px;
+}
+
+.home-heading h1 {
+  margin: 0;
+  font-size: 32px;
+  letter-spacing: -1.5px;
+}
+
+.discover-card {
+  position: relative;
+  min-height: 350px;
+  overflow: hidden;
+  border-radius: 28px;
+  border: 1px solid rgba(255,255,255,0.1);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.08)),
+    #171020;
+  box-shadow: 0 25px 70px rgba(0,0,0,0.35);
+}
+
+.discover-photo {
+  min-height: 350px;
+  display: flex;
+  align-items: flex-end;
+  padding: 24px;
+  background:
+    radial-gradient(circle at 50% 25%, rgba(255, 70, 180, 0.28), transparent 35%),
+    linear-gradient(145deg, #241435, #11101d);
+}
+
+.discover-avatar {
+  width: 100px;
+  height: 100px;
+  margin-bottom: 12px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 34px;
+  font-weight: 800;
+  border: 4px solid rgba(255,255,255,0.16);
+  background: linear-gradient(135deg, #ff3f9f, #9858ff);
+}
+
+.discover-info h2 {
+  margin: 0;
+  font-size: 28px;
+}
+
+.discover-info p {
+  margin: 7px 0 0;
+  color: #c4bacd;
+}
+
+.online-dot {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  margin-right: 7px;
+  border-radius: 50%;
+  background: #65e69a;
+}
+
+.quick-actions {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.feature-card {
+  padding: 18px;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 22px;
+  background: rgba(255,255,255,0.045);
+  backdrop-filter: blur(18px);
+}
+
+.feature-card-icon {
+  width: 42px;
+  height: 42px;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(255,63,159,0.25), rgba(152,88,255,0.25));
+}
+
+.feature-card h3 {
+  margin: 0;
+  font-size: 16px;
+}
+
+.feature-card p {
+  margin: 6px 0 0;
+  color: #948b9e;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.bottom-nav {
+  position: fixed;
+  z-index: 20;
+  left: 50%;
+  bottom: 14px;
+  transform: translateX(-50%);
+  width: min(calc(100% - 28px), 590px);
+  padding: 10px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 5px;
+  border: 1px solid rgba(255,255,255,0.09);
+  border-radius: 22px;
+  background: rgba(18, 13, 27, 0.88);
+  backdrop-filter: blur(22px);
+  box-shadow: 0 18px 50px rgba(0,0,0,0.4);
+}
+
+.nav-item {
+  min-height: 54px;
+  border: 0;
+  border-radius: 16px;
+  color: #827989;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  font-size: 11px;
+}
+
+.nav-item.active {
+  color: white;
+  background: linear-gradient(
+    135deg,
+    rgba(255,63,159,0.2),
+    rgba(152,88,255,0.2)
+  );
+}
+

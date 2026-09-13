@@ -1,7 +1,101 @@
 import { useState } from "react";
-import { ArrowLeft, ArrowRight, Heart } from "lucide-react";
+import { ArrowLeft, ArrowRight, Heart, Sparkles, Gamepad2, MessageCircle, User, Bell, Compass } from "lucide-react";
 import { supabase } from "./supabase";
 import "./App.css";
+
+function HomeScreen() {
+  return (
+    <main className="home-page">
+      <div className="home-container">
+        <header className="home-top">
+          <div className="home-brand">
+            <div className="home-brand-icon">
+              <Heart size={22} fill="currentColor" />
+            </div>
+            <span className="home-brand-name">VibeMeet</span>
+          </div>
+
+          <button className="home-icon-button">
+            <Bell size={20} />
+          </button>
+        </header>
+
+        <section className="home-heading">
+          <p>Welcome to VibeMeet ❤️</p>
+          <h1>Find your vibe.</h1>
+        </section>
+
+        <section className="discover-card">
+          <div className="discover-photo">
+            <div>
+              <div className="discover-avatar">V</div>
+              <div className="discover-info">
+                <h2>Discover</h2>
+                <p>
+                  <span className="online-dot"></span>
+                  New people are joining VibeMeet
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <div className="quick-actions">
+          <div className="feature-card">
+            <div className="feature-card-icon">
+              <Compass size={21} />
+            </div>
+            <h3>Discover</h3>
+            <p>Meet people who match your vibe.</p>
+          </div>
+
+          <div className="feature-card">
+            <div className="feature-card-icon">
+              <Gamepad2 size={21} />
+            </div>
+            <h3>Vibe Games</h3>
+            <p>Have fun while you meet new people.</p>
+          </div>
+
+          <div className="feature-card">
+            <div className="feature-card-icon">
+              <Sparkles size={21} />
+            </div>
+            <h3>VibeMate</h3>
+            <p>Your AI companion for dating and conversations.</p>
+          </div>
+
+          <div className="feature-card">
+            <div className="feature-card-icon">
+              <MessageCircle size={21} />
+            </div>
+            <h3>Messages</h3>
+            <p>Chat and build real connections.</p>
+          </div>
+        </div>
+      </div>
+
+      <nav className="bottom-nav">
+        <button className="nav-item active">
+          <Compass size={21} />
+          Discover
+        </button>
+        <button className="nav-item">
+          <Gamepad2 size={21} />
+          Games
+        </button>
+        <button className="nav-item">
+          <MessageCircle size={21} />
+          Messages
+        </button>
+        <button className="nav-item">
+          <User size={21} />
+          Profile
+        </button>
+      </nav>
+    </main>
+  );
+}
 
 function App() {
   const [screen, setScreen] = useState("welcome");
@@ -67,6 +161,10 @@ alert("VibeMeet account created successfully! ❤️");
   setSignupStep(3);
 };
 
+
+  if (screen === "home") {
+    return <HomeScreen />;
+  }
 
   if (screen === "welcome") {
     return (
@@ -323,7 +421,7 @@ return (
 
             <button
               className="continue-button"
-              onClick={() => setScreen("welcome")}
+              onClick={() => setScreen("home")}
             >
               Finish
               <Heart size={20} fill="currentColor" />
