@@ -1109,3 +1109,12 @@ input {
   width: auto !important;
   max-width: 680px !important;
 }
+
+.profile-counter {
+  text-align: center;
+  margin: 18px 0 8px;
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}

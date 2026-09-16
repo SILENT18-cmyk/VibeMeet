@@ -161,6 +161,10 @@ function HomeScreen() {
               </div>
             </div>
 
+            <div className="profile-counter">
+  {currentIndex + 1} of {profiles.length}
+</div>
+
             <div className="profile-actions">
               <button
                 className="pass-button"
