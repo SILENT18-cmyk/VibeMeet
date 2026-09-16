@@ -1,9 +1,82 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ArrowLeft, ArrowRight, Heart, Sparkles, Gamepad2, MessageCircle, User, Bell, Compass } from "lucide-react";
 import { supabase } from "./supabase";
 import "./App.css";
 
 function HomeScreen() {
+  const [profiles, setProfiles] = useState([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [loading, setLoading] = useState(true);
+  const [errorMessage, setErrorMessage] = useState("");
+
+  useEffect(() => {
+    const loadProfiles = async () => {
+      setLoading(true);
+      setErrorMessage("");
+
+      const { data: userData } = await supabase.auth.getUser();
+      const currentUserId = userData?.user?.id;
+
+      let query = supabase
+        .from("profiles")
+        .select("id, name, birthday, gender, interested_in")
+        .order("created_at", { ascending: false });
+
+      if (currentUserId) {
+        query = query.neq("id", currentUserId);
+      }
+
+      const { data, error } = await query;
+
+      if (error) {
+        console.error("Could not load profiles:", error);
+        setErrorMessage(error.message);
+        setProfiles([]);
+      } else {
+        setProfiles(data || []);
+      }
+
+      setLoading(false);
+    };
+
+    loadProfiles();
+  }, []);
+
+  const currentProfile = profiles[currentIndex];
+
+  const calculateAge = (birthday) => {
+    if (!birthday) return "";
+    
+    const birthDate = new Date(birthday);
+    const today = new Date();
+
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const monthDifference = today.getMonth() - birthDate.getMonth();
+
+    if (
+      monthDifference < 0 ||
+      (monthDifference === 0 && today.getDate() < birthDate.getDate())
+    ) {
+      age--;
+    }
+
+    return age;
+  };
+
+  const nextProfile = () => {
+    if (profiles.length === 0) return;
+
+    setCurrentIndex((currentIndex + 1) % profiles.length);
+  };
+
+  const previousProfile = () => {
+    if (profiles.length === 0) return;
+
+    setCurrentIndex(
+      (currentIndex - 1 + profiles.length) % profiles.length
+    );
+  };
+
   return (
     <main className="home-page">
       <div className="home-container">
@@ -24,44 +97,98 @@ function HomeScreen() {
           <span>Discover people who match your energy.</span>
         </div>
 
-        <section className="profile-card">
-
-          <div className="profile-photo">
-            <div className="profile-placeholder">V</div>
-
-            <div className="online-badge">
-              <span></span> Online now
-            </div>
-          </div>
-
-          <div className="profile-info">
-            <div>
-              <h2>VibeMeet Member <span>✓</span></h2>
-              <p>New here • Ready to connect</p>
+        {loading ? (
+          <section className="profile-card">
+            <div className="profile-photo">
+              <div className="profile-placeholder">V</div>
             </div>
 
-            <div className="vibe-tags">
-              <span>✨ Friendly</span>
-              <span>💬 Chatty</span>
-              <span>🎵 Music</span>
+            <div className="profile-info">
+              <h2>Finding your vibes...</h2>
+              <p>Looking for people on VibeMeet.</p>
             </div>
-          </div>
+          </section>
+        ) : errorMessage ? (
+          <section className="profile-card">
+            <div className="profile-info">
+              <h2>Something went wrong</h2>
+              <p>{errorMessage}</p>
+            </div>
+          </section>
+        ) : !currentProfile ? (
+          <section className="profile-card">
+            <div className="profile-photo">
+              <div className="profile-placeholder">❤️</div>
+            </div>
 
-          <div className="profile-actions">
-            <button className="pass-button">
-              <ArrowLeft size={24} />
-            </button>
+            <div className="profile-info">
+              <h2>No new profiles yet</h2>
+              <p>Invite more people to join VibeMeet.</p>
+            </div>
+          </section>
+        ) : (
+          <section className="profile-card">
 
-            <button className="like-button">
-              <Heart size={27} fill="currentColor" />
-            </button>
+            <div className="profile-photo">
+              <div className="profile-placeholder">
+                {(currentProfile.name || "V").charAt(0).toUpperCase()}
+              </div>
 
-            <button className="next-button">
-              <ArrowRight size={24} />
-            </button>
-          </div>
+              <div className="online-badge">
+                <span></span> On VibeMeet
+              </div>
+            </div>
 
-        </section>
+            <div className="profile-info">
+              <div>
+                <h2>
+                  {currentProfile.name || "VibeMeet Member"}{" "}
+                  <span>✓</span>
+                </h2>
+
+                <p>
+                  {calculateAge(currentProfile.birthday)
+                    ? calculateAge(currentProfile.birthday) + " years old"
+                    : "New here"}{" "}
+                  • {currentProfile.gender || "VibeMeet member"}
+                </p>
+              </div>
+
+              <div className="vibe-tags">
+                <span>✨ Friendly</span>
+                <span>💬 Chatty</span>
+                <span>❤️ Open to connect</span>
+              </div>
+            </div>
+
+            <div className="profile-actions">
+              <button
+                className="pass-button"
+                onClick={previousProfile}
+                aria-label="Previous profile"
+              >
+                <ArrowLeft size={24} />
+              </button>
+
+              <button
+                className="like-button"
+                aria-label="Like profile"
+                onClick={nextProfile}
+              >
+                <Heart size={27} fill="currentColor" />
+              </button>
+
+              <button
+                className="next-button"
+                onClick={nextProfile}
+                aria-label="Next profile"
+              >
+                <ArrowRight size={24} />
+              </button>
+            </div>
+
+          </section>
+        )}
 
         <div className="section-title">
           <div>
@@ -134,7 +261,6 @@ function HomeScreen() {
     </main>
   );
 }
-
 function App() {
   const [screen, setScreen] = useState(() => localStorage.getItem("vibemeet_screen") || "welcome");
   const [signupStep, setSignupStep] = useState(1);
