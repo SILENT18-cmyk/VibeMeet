@@ -606,3 +606,448 @@ input {
   );
 }
 
+/* ===== VibeMeet Premium Home Upgrade ===== */
+
+.home-page {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(190, 55, 210, 0.22), transparent 35%),
+    radial-gradient(circle at 0% 45%, rgba(255, 55, 160, 0.10), transparent 30%),
+    #080611;
+  color: white;
+  overflow-x: hidden;
+}
+
+.home-container {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 28px 18px 115px;
+}
+
+.home-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 28px;
+}
+
+.home-brand {
+  font-size: 15px;
+  font-weight: 600;
+  color: #c9b9d8;
+  letter-spacing: .3px;
+}
+
+.home-brand strong {
+  color: #ff5ac8;
+}
+
+.home-top button {
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgba(255,255,255,.10);
+  border-radius: 50%;
+  background: rgba(255,255,255,.06);
+  color: white;
+  display: grid;
+  place-items: center;
+  backdrop-filter: blur(12px);
+}
+
+.home-page h1 {
+  font-size: clamp(38px, 10vw, 58px);
+  line-height: .98;
+  letter-spacing: -2px;
+  margin: 0 0 26px;
+  font-weight: 800;
+}
+
+.discover-card {
+  position: relative;
+  min-height: 430px;
+  border-radius: 32px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.10);
+  background:
+    radial-gradient(circle at 50% 18%, rgba(255,55,190,.34), transparent 32%),
+    linear-gradient(145deg, #25172f, #100d19 70%);
+  box-shadow:
+    0 25px 70px rgba(0,0,0,.45),
+    inset 0 1px rgba(255,255,255,.08);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 30px 20px;
+  margin-bottom: 20px;
+}
+
+.discover-card::before {
+  content: "";
+  position: absolute;
+  width: 230px;
+  height: 230px;
+  border-radius: 50%;
+  background: rgba(255, 50, 190, .16);
+  filter: blur(55px);
+  top: 45px;
+}
+
+.discover-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+.discover-card .avatar {
+  width: 145px;
+  height: 145px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 58px;
+  font-weight: 800;
+  background: linear-gradient(135deg, #ff3da9, #9c4dff);
+  border: 5px solid rgba(255,255,255,.20);
+  box-shadow:
+    0 0 0 8px rgba(255,65,180,.08),
+    0 20px 55px rgba(210,45,190,.35);
+  margin-bottom: 22px;
+}
+
+.discover-card h2 {
+  font-size: 32px;
+  margin: 0 0 8px;
+}
+
+.discover-card p {
+  margin: 0;
+  color: #bcb1c6;
+  font-size: 16px;
+}
+
+.quick-actions {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  margin-top: 18px;
+}
+
+.feature-card {
+  min-height: 170px;
+  padding: 22px 18px;
+  border-radius: 26px;
+  border: 1px solid rgba(255,255,255,.08);
+  background: linear-gradient(
+    145deg,
+    rgba(255,255,255,.075),
+    rgba(255,255,255,.025)
+  );
+  box-shadow: 0 15px 35px rgba(0,0,0,.22);
+  transition: transform .2s ease, border-color .2s ease;
+}
+
+.feature-card:active {
+  transform: scale(.97);
+}
+
+.feature-card h3 {
+  margin: 18px 0 7px;
+  font-size: 20px;
+}
+
+.feature-card p {
+  color: #9e96a8;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.feature-card svg {
+  width: 24px;
+  height: 24px;
+}
+
+.bottom-nav {
+  position: fixed;
+  z-index: 20;
+  left: 16px;
+  right: 16px;
+  bottom: 16px;
+  max-width: 688px;
+  margin: auto;
+  min-height: 72px;
+  padding: 8px;
+  border-radius: 27px;
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(15,11,24,.82);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 18px 50px rgba(0,0,0,.55);
+}
+
+.bottom-nav button {
+  border: 0;
+  background: transparent;
+  color: #8e8797;
+  border-radius: 20px;
+  transition: .2s ease;
+}
+
+.bottom-nav button.active {
+  color: white;
+  background: linear-gradient(135deg, #72265f, #422064);
+  box-shadow: inset 0 1px rgba(255,255,255,.10);
+}
+
+@media (max-width: 430px) {
+  .home-container {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+
+  .discover-card {
+    min-height: 410px;
+    border-radius: 28px;
+  }
+
+  .discover-card .avatar {
+    width: 125px;
+    height: 125px;
+    font-size: 50px;
+  }
+
+  .feature-card {
+    min-height: 155px;
+    padding: 18px 15px;
+  }
+
+  .feature-card h3 {
+    font-size: 18px;
+  }
+}
+
+/* ===== VibeMeet Premium Discover ===== */
+
+.discover-heading {
+  margin-bottom: 22px;
+}
+
+.discover-heading p {
+  margin: 0 0 5px;
+  color: #a99caf;
+  font-size: 15px;
+}
+
+.discover-heading h1 {
+  margin: 0;
+  font-size: 42px;
+  line-height: 1;
+  letter-spacing: -1.8px;
+}
+
+.discover-heading span {
+  display: block;
+  margin-top: 10px;
+  color: #918798;
+  font-size: 15px;
+}
+
+.profile-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 30px;
+  background:
+    radial-gradient(circle at 50% 18%, rgba(255, 55, 190, .28), transparent 35%),
+    linear-gradient(145deg, #24152f, #0f0b18 75%);
+  border: 1px solid rgba(255,255,255,.11);
+  box-shadow: 0 25px 65px rgba(0,0,0,.45);
+}
+
+.profile-photo {
+  height: 390px;
+  display: grid;
+  place-items: center;
+  position: relative;
+  background:
+    radial-gradient(circle, rgba(219, 51, 183, .25), transparent 48%),
+    linear-gradient(145deg, #32183c, #110c1a);
+}
+
+.profile-placeholder {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 64px;
+  font-weight: 800;
+  background: linear-gradient(135deg, #ff3eae, #914dff);
+  border: 5px solid rgba(255,255,255,.2);
+  box-shadow:
+    0 0 0 9px rgba(255,70,190,.08),
+    0 25px 60px rgba(207,40,183,.4);
+}
+
+.online-badge {
+  position: absolute;
+  left: 18px;
+  bottom: 18px;
+  padding: 8px 13px;
+  border-radius: 20px;
+  background: rgba(8,7,13,.72);
+  border: 1px solid rgba(255,255,255,.1);
+  backdrop-filter: blur(12px);
+  color: #ddd4e2;
+  font-size: 13px;
+}
+
+.online-badge span {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  margin-right: 6px;
+  border-radius: 50%;
+  background: #55e99a;
+  box-shadow: 0 0 10px rgba(85,233,154,.7);
+}
+
+.profile-info {
+  padding: 20px 20px 10px;
+}
+
+.profile-info h2 {
+  margin: 0;
+  font-size: 24px;
+}
+
+.profile-info h2 span {
+  color: #ff5bc7;
+  font-size: 17px;
+}
+
+.profile-info p {
+  margin: 6px 0 0;
+  color: #9c93a5;
+}
+
+.vibe-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 15px;
+}
+
+.vibe-tags span {
+  padding: 7px 11px;
+  border-radius: 16px;
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.08);
+  color: #cfc5d5;
+  font-size: 12px;
+}
+
+.profile-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 18px;
+  padding: 18px 20px 24px;
+}
+
+.profile-actions button {
+  border: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  transition: transform .15s ease;
+}
+
+.profile-actions button:active {
+  transform: scale(.9);
+}
+
+.pass-button,
+.next-button {
+  width: 52px;
+  height: 52px;
+  color: #cfc5d5;
+  background: rgba(255,255,255,.07);
+  border: 1px solid rgba(255,255,255,.1) !important;
+}
+
+.like-button {
+  width: 68px;
+  height: 68px;
+  color: white;
+  background: linear-gradient(135deg, #ff3da9, #a248ff);
+  box-shadow: 0 12px 30px rgba(224,48,177,.35);
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 28px 3px 15px;
+}
+
+.section-title h3 {
+  margin: 0;
+  font-size: 21px;
+}
+
+.section-title p {
+  margin: 4px 0 0;
+  color: #8e8597;
+  font-size: 13px;
+}
+
+.section-title > svg {
+  color: #e75bc0;
+}
+
+.feature-card {
+  text-align: left;
+  color: white;
+  cursor: pointer;
+}
+
+.feature-icon {
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  border-radius: 16px;
+  color: #fff;
+  background: linear-gradient(135deg, #5d1d62, #34205d);
+  box-shadow: inset 0 1px rgba(255,255,255,.12);
+}
+
+.bottom-nav {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  align-items: center;
+}
+
+.bottom-nav button {
+  height: 58px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  font-size: 11px;
+}
+
+@media (max-width: 430px) {
+  .discover-heading h1 {
+    font-size: 38px;
+  }
+
+  .profile-photo {
+    height: 350px;
+  }
+
+  .profile-placeholder {
+    width: 130px;
+    height: 130px;
+    font-size: 55px;
+  }
+}

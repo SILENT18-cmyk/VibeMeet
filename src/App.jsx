@@ -7,92 +7,130 @@ function HomeScreen() {
   return (
     <main className="home-page">
       <div className="home-container">
-        <header className="home-top">
+
+        <div className="home-top">
           <div className="home-brand">
-            <div className="home-brand-icon">
-              <Heart size={22} fill="currentColor" />
-            </div>
-            <span className="home-brand-name">VibeMeet</span>
+            VibeMeet <strong>❤️</strong>
           </div>
 
-          <button className="home-icon-button">
-            <Bell size={20} />
+          <button className="icon-button" aria-label="Notifications">
+            <Bell size={21} />
           </button>
-        </header>
+        </div>
 
-        <section className="home-heading">
-          <p>Welcome to VibeMeet ❤️</p>
+        <div className="discover-heading">
+          <p>Good to see you 👋</p>
           <h1>Find your vibe.</h1>
-        </section>
+          <span>Discover people who match your energy.</span>
+        </div>
 
-        <section className="discover-card">
-          <div className="discover-photo">
-            <div>
-              <div className="discover-avatar">V</div>
-              <div className="discover-info">
-                <h2>Discover</h2>
-                <p>
-                  <span className="online-dot"></span>
-                  New people are joining VibeMeet
-                </p>
-              </div>
+        <section className="profile-card">
+
+          <div className="profile-photo">
+            <div className="profile-placeholder">V</div>
+
+            <div className="online-badge">
+              <span></span> Online now
             </div>
           </div>
+
+          <div className="profile-info">
+            <div>
+              <h2>VibeMeet Member <span>✓</span></h2>
+              <p>New here • Ready to connect</p>
+            </div>
+
+            <div className="vibe-tags">
+              <span>✨ Friendly</span>
+              <span>💬 Chatty</span>
+              <span>🎵 Music</span>
+            </div>
+          </div>
+
+          <div className="profile-actions">
+            <button className="pass-button">
+              <ArrowLeft size={24} />
+            </button>
+
+            <button className="like-button">
+              <Heart size={27} fill="currentColor" />
+            </button>
+
+            <button className="next-button">
+              <ArrowRight size={24} />
+            </button>
+          </div>
+
         </section>
+
+        <div className="section-title">
+          <div>
+            <h3>Explore VibeMeet</h3>
+            <p>More ways to connect</p>
+          </div>
+          <Sparkles size={22} />
+        </div>
 
         <div className="quick-actions">
-          <div className="feature-card">
-            <div className="feature-card-icon">
-              <Compass size={21} />
+
+          <button className="feature-card">
+            <div className="feature-icon">
+              <Compass size={25} />
             </div>
             <h3>Discover</h3>
             <p>Meet people who match your vibe.</p>
-          </div>
+          </button>
 
-          <div className="feature-card">
-            <div className="feature-card-icon">
-              <Gamepad2 size={21} />
+          <button className="feature-card">
+            <div className="feature-icon">
+              <Gamepad2 size={25} />
             </div>
             <h3>Vibe Games</h3>
-            <p>Have fun while you meet new people.</p>
-          </div>
+            <p>Have fun while meeting someone new.</p>
+          </button>
 
-          <div className="feature-card">
-            <div className="feature-card-icon">
-              <Sparkles size={21} />
+          <button className="feature-card">
+            <div className="feature-icon">
+              <Sparkles size={25} />
             </div>
             <h3>VibeMate</h3>
             <p>Your AI companion for dating and conversations.</p>
-          </div>
+          </button>
 
-          <div className="feature-card">
-            <div className="feature-card-icon">
-              <MessageCircle size={21} />
+          <button className="feature-card">
+            <div className="feature-icon">
+              <MessageCircle size={25} />
             </div>
             <h3>Messages</h3>
             <p>Chat and build real connections.</p>
-          </div>
+          </button>
+
         </div>
+
       </div>
 
       <nav className="bottom-nav">
-        <button className="nav-item active">
-          <Compass size={21} />
-          Discover
+        <button className="active">
+          <Compass size={23} />
+          <span>Discover</span>
         </button>
-        <button className="nav-item">
-          <Gamepad2 size={21} />
-          Games
+
+        <button>
+          <Gamepad2 size={23} />
+          <span>Games</span>
         </button>
-        <button className="nav-item">
-          <MessageCircle size={21} />
-          Messages
+
+        <button>
+          <MessageCircle size={23} />
+          <span>Messages</span>
         </button>
-        <button className="nav-item">
-          <User size={21} />
-          Profile
+
+        <button>
+          <User size={23} />
+          <span>Profile</span>
         </button>
       </nav>
+
     </main>
   );
 }
