@@ -1101,3 +1101,11 @@ input {
     height: 58px;
   }
 }
+
+.bottom-nav {
+  transform: none !important;
+  left: 10px !important;
+  right: 10px !important;
+  width: auto !important;
+  max-width: 680px !important;
+}
