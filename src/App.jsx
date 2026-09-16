@@ -8,6 +8,8 @@ function HomeScreen() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
+  const [swipeStart, setSwipeStart] = useState(null);
+  const [swipeOffset, setSwipeOffset] = useState(0);
 
   useEffect(() => {
     const loadProfiles = async () => {
@@ -62,6 +64,30 @@ function HomeScreen() {
 
     return age;
   };
+
+const handleTouchStart = (event) => {
+  setSwipeStart(event.touches[0].clientX);
+};
+
+const handleTouchMove = (event) => {
+  if (swipeStart === null) return;
+
+  const currentX = event.touches[0].clientX;
+  setSwipeOffset(currentX - swipeStart);
+};
+
+const handleTouchEnd = () => {
+  if (Math.abs(swipeOffset) > 80) {
+    if (swipeOffset < 0) {
+      nextProfile();
+    } else {
+      previousProfile();
+    }
+  }
+
+  setSwipeStart(null);
+  setSwipeOffset(0);
+};
 
   const nextProfile = () => {
     if (profiles.length === 0) return;
