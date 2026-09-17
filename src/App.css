@@ -1134,7 +1134,7 @@ input {
 }
 
 .like-label {
-  right: 25px;
+  right: 10px;
   color: #22c55e;
   transform: rotate(12deg);
 }
