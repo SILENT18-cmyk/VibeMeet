@@ -159,10 +159,10 @@ const handleTouchEnd = () => {
   onTouchMove={handleTouchMove}
   onTouchEnd={handleTouchEnd}
   style={{
-    transform: `translateX(${swipeOffset}px) rotate(${swipeOffset * 0.04}deg)`,
-    transition: swipeStart === null ? "transform 0.3s ease" : "none",
-  }}
->
+  transform: `translateX(${swipeOffset}px) rotate(${swipeOffset * 0.04}deg) scale(${1 - Math.min(Math.abs(swipeOffset) / 1200, 0.06)})`,
+  opacity: 1 - Math.min(Math.abs(swipeOffset) / 900, 0.15),
+  transition: swipeStart === null ? "transform 0.3s ease, opacity 0.3s ease" : "none",
+}}
 
 {swipeOffset > 30 && (
   <div className="swipe-label like-label">❤️ LIKE</div>
