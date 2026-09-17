@@ -163,7 +163,7 @@ const handleTouchEnd = () => {
   opacity: 1 - Math.min(Math.abs(swipeOffset) / 900, 0.15),
   transition: swipeStart === null ? "transform 0.3s ease, opacity 0.3s ease" : "none",
 }}
-
+>
 {swipeOffset > 30 && (
   <div className="swipe-label like-label">❤️ LIKE</div>
 )}
