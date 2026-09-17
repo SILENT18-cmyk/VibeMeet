@@ -153,8 +153,16 @@ const handleTouchEnd = () => {
             </div>
           </section>
         ) : (
-          <section className="profile-card">
-
+<section
+  className="profile-card"
+  onTouchStart={handleTouchStart}
+  onTouchMove={handleTouchMove}
+  onTouchEnd={handleTouchEnd}
+  style={{
+    transform: `translateX(${swipeOffset}px) rotate(${swipeOffset * 0.04}deg)`,
+    transition: swipeStart === null ? "transform 0.3s ease" : "none",
+  }}
+>
             <div className="profile-photo">
               <div className="profile-placeholder">
                 {(currentProfile.name || "V").charAt(0).toUpperCase()}
