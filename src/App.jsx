@@ -163,7 +163,16 @@ const handleTouchEnd = () => {
     transition: swipeStart === null ? "transform 0.3s ease" : "none",
   }}
 >
-            <div className="profile-photo">
+
+{swipeOffset > 30 && (
+  <div className="swipe-label like-label">❤️ LIKE</div>
+)}
+
+{swipeOffset < -30 && (
+  <div className="swipe-label pass-label">✕ PASS</div>
+)}
+  
+          <div className="profile-photo">
               <div className="profile-placeholder">
                 {(currentProfile.name || "V").charAt(0).toUpperCase()}
               </div>
