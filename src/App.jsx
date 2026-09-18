@@ -10,6 +10,22 @@ function HomeScreen() {
   const [errorMessage, setErrorMessage] = useState("");
   const [swipeStart, setSwipeStart] = useState(null);
   const [swipeOffset, setSwipeOffset] = useState(0);
+const [selectedCountry, setSelectedCountry] = useState("Nigeria");
+const [showLocationMenu, setShowLocationMenu] = useState(false);
+
+const countries = [
+  "Nigeria",
+  "United States",
+  "United Kingdom",
+  "Canada",
+  "Ghana",
+  "South Africa",
+  "Kenya",
+  "Australia",
+  "Germany",
+  "France",
+  "Any country",
+];
 
   useEffect(() => {
     const loadProfiles = async () => {
@@ -151,6 +167,42 @@ const handleTouchEnd = () => {
           <h1>Find your vibe.</h1>
           <span>Discover people who match your energy.</span>
         </div>
+
+<div className="location-section">
+  <button
+    className="location-button"
+    onClick={() => setShowLocationMenu(!showLocationMenu)}
+  >
+    📍 {selectedCountry}
+    <span>⌄</span>
+  </button>
+
+  {showLocationMenu && (
+    <div className="location-menu">
+      <div className="location-menu-title">
+        🌍 Explore by location
+      </div>
+
+      {countries.map((country) => (
+        <button
+          key={country}
+          className={
+            selectedCountry === country
+              ? "country-option active"
+              : "country-option"
+          }
+          onClick={() => {
+            setSelectedCountry(country);
+            setShowLocationMenu(false);
+          }}
+        >
+          {country === "Any country" ? "🌎" : "🌍"} {country}
+          {selectedCountry === country && <span>✓</span>}
+        </button>
+      ))}
+    </div>
+  )}
+</div>
 
         {loading ? (
           <section className="profile-card">
