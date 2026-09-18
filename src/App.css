@@ -1144,3 +1144,10 @@ input {
   color: #ef4444;
   transform: rotate(-12deg);
 }
+
+/* Swipe only inside the profile card */
+.profile-card {
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+}
