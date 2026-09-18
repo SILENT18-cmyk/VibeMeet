@@ -76,12 +76,41 @@ const handleTouchMove = (event) => {
   setSwipeOffset(currentX - swipeStart);
 };
 
+const handleSwipe = async (action) => {
+  const currentProfile = profiles[currentIndex];
+
+  if (!currentProfile) return;
+
+  const { data: userData } = await supabase.auth.getUser();
+  const currentUserId = userData?.user?.id;
+
+  if (!currentUserId) {
+    console.error("No logged-in user found.");
+    nextProfile();
+    return;
+  }
+
+  const { error } = await supabase
+    .from("swipes")
+    .insert({
+      user_id: currentUserId,
+      profile_id: currentProfile.id,
+      action: action,
+    });
+
+  if (error) {
+    console.error("Could not save swipe:", error);
+  }
+
+  nextProfile();
+};
+
 const handleTouchEnd = () => {
   if (Math.abs(swipeOffset) > 80) {
     if (swipeOffset < 0) {
-      nextProfile();
+      handleSwipe("pass");
     } else {
-      previousProfile();
+      handleSwipe("like");
     }
   }
 
@@ -211,7 +240,7 @@ const handleTouchEnd = () => {
             <div className="profile-actions">
               <button
                 className="pass-button"
-                onClick={previousProfile}
+                onClick={() => handleSwipe("pass")}
                 aria-label="Previous profile"
               >
                 <ArrowLeft size={24} />
@@ -220,8 +249,7 @@ const handleTouchEnd = () => {
               <button
                 className="like-button"
                 aria-label="Like profile"
-                onClick={nextProfile}
-              >
+onClick={() => handleSwipe("like")}              >
                 <Heart size={27} fill="currentColor" />
               </button>
 
