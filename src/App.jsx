@@ -12,19 +12,222 @@ function HomeScreen() {
   const [swipeOffset, setSwipeOffset] = useState(0);
 const [selectedCountry, setSelectedCountry] = useState("Nigeria");
 const [showLocationMenu, setShowLocationMenu] = useState(false);
+const [countrySearch, setCountrySearch] = useState("");
+const [selectedLanguage, setSelectedLanguage] = useState("English");
 
-const countries = [
-  "Nigeria",
-  "United States",
-  "United Kingdom",
-  "Canada",
-  "Ghana",
-  "South Africa",
-  "Kenya",
-  "Australia",
-  "Germany",
-  "France",
+  const languages = [
+    "English",
+    "Spanish",
+    "French",
+    "Portuguese",
+    "Arabic",
+    "German",
+    "Italian",
+    "Dutch",
+    "Russian",
+    "Chinese",
+    "Japanese",
+    "Korean",
+    "Hindi",
+    "Turkish",
+    "Swahili",
+    "Yoruba",
+    "Igbo",
+    "Hausa",
+  ];
+
+  const countries = [
   "Any country",
+  "Afghanistan",
+  "Albania",
+  "Algeria",
+  "Andorra",
+  "Angola",
+  "Antigua and Barbuda",
+  "Argentina",
+  "Armenia",
+  "Australia",
+  "Austria",
+  "Azerbaijan",
+  "Bahamas",
+  "Bahrain",
+  "Bangladesh",
+  "Barbados",
+  "Belarus",
+  "Belgium",
+  "Belize",
+  "Benin",
+  "Bolivia",
+  "Bosnia and Herzegovina",
+  "Botswana",
+  "Brazil",
+  "Brunei",
+  "Bulgaria",
+  "Burkina Faso",
+  "Burundi",
+  "Cambodia",
+  "Cameroon",
+  "Canada",
+  "Cape Verde",
+  "Central African Republic",
+  "Chad",
+  "Chile",
+  "China",
+  "Colombia",
+  "Comoros",
+  "Congo",
+  "Costa Rica",
+  "Croatia",
+  "Cuba",
+  "Cyprus",
+  "Czech Republic",
+  "Denmark",
+  "Djibouti",
+  "Dominica",
+  "Dominican Republic",
+  "Ecuador",
+  "Egypt",
+  "El Salvador",
+  "Equatorial Guinea",
+  "Eritrea",
+  "Estonia",
+  "Eswatini",
+  "Ethiopia",
+  "Fiji",
+  "Finland",
+  "France",
+  "Gabon",
+  "Gambia",
+  "Georgia",
+  "Germany",
+  "Ghana",
+  "Greece",
+  "Grenada",
+  "Guatemala",
+  "Guinea",
+  "Guinea-Bissau",
+  "Guyana",
+  "Haiti",
+  "Honduras",
+  "Hungary",
+  "Iceland",
+  "India",
+  "Indonesia",
+  "Iran",
+  "Iraq",
+  "Ireland",
+  "Israel",
+  "Italy",
+  "Jamaica",
+  "Japan",
+  "Jordan",
+  "Kazakhstan",
+  "Kenya",
+  "Kiribati",
+  "Kuwait",
+  "Kyrgyzstan",
+  "Laos",
+  "Latvia",
+  "Lebanon",
+  "Lesotho",
+  "Liberia",
+  "Libya",
+  "Liechtenstein",
+  "Lithuania",
+  "Luxembourg",
+  "Madagascar",
+  "Malawi",
+  "Malaysia",
+  "Maldives",
+  "Mali",
+  "Malta",
+  "Marshall Islands",
+  "Mauritania",
+  "Mauritius",
+  "Mexico",
+  "Micronesia",
+  "Moldova",
+  "Monaco",
+  "Mongolia",
+  "Montenegro",
+  "Morocco",
+  "Mozambique",
+  "Myanmar",
+  "Namibia",
+  "Nauru",
+  "Nepal",
+  "Netherlands",
+  "New Zealand",
+  "Nicaragua",
+  "Niger",
+  "Nigeria",
+  "North Korea",
+  "North Macedonia",
+  "Norway",
+  "Oman",
+  "Pakistan",
+  "Palau",
+  "Palestine",
+  "Panama",
+  "Papua New Guinea",
+  "Paraguay",
+  "Peru",
+  "Philippines",
+  "Poland",
+  "Portugal",
+  "Qatar",
+  "Romania",
+  "Russia",
+  "Rwanda",
+  "Saint Lucia",
+  "Samoa",
+  "San Marino",
+  "Saudi Arabia",
+  "Senegal",
+  "Serbia",
+  "Seychelles",
+  "Sierra Leone",
+  "Singapore",
+  "Slovakia",
+  "Slovenia",
+  "Solomon Islands",
+  "Somalia",
+  "South Africa",
+  "South Korea",
+  "South Sudan",
+  "Spain",
+  "Sri Lanka",
+  "Sudan",
+  "Suriname",
+  "Sweden",
+  "Switzerland",
+  "Syria",
+  "Taiwan",
+  "Tajikistan",
+  "Tanzania",
+  "Thailand",
+  "Timor-Leste",
+  "Togo",
+  "Tonga",
+  "Trinidad and Tobago",
+  "Tunisia",
+  "Turkey",
+  "Turkmenistan",
+  "Tuvalu",
+  "Uganda",
+  "Ukraine",
+  "United Arab Emirates",
+  "United Kingdom",
+  "United States",
+  "Uruguay",
+  "Uzbekistan",
+  "Vanuatu",
+  "Vatican City",
+  "Venezuela",
+  "Vietnam",
+  "Yemen",
+  "Zambia",
+  "Zimbabwe",
 ];
 
   useEffect(() => {
@@ -37,7 +240,7 @@ const countries = [
 
       let query = supabase
         .from("profiles")
-        .select("id, name, birthday, gender, interested_in")
+.select("id, name, birthday, gender, interested_in, photo_url, bio, country, city, interests")
         .order("created_at", { ascending: false });
 
       if (currentUserId) {
@@ -183,7 +386,19 @@ const handleTouchEnd = () => {
         🌍 Explore by location
       </div>
 
-      {countries.map((country) => (
+<input
+  type="text"
+  className="country-search"
+  placeholder="🔎 Search country..."
+  value={countrySearch}
+  onChange={(event) => setCountrySearch(event.target.value)}
+/>
+
+{countries
+  .filter((country) =>
+    country.toLowerCase().includes(countrySearch.toLowerCase())
+  )
+  .map((country) => (
         <button
           key={country}
           className={
@@ -200,6 +415,24 @@ const handleTouchEnd = () => {
           {selectedCountry === country && <span>✓</span>}
         </button>
       ))}
+
+      <div className="language-selector">
+        <div className="location-menu-title">
+          🗣️ Your language
+        </div>
+
+        <select
+          className="language-select"
+          value={selectedLanguage}
+          onChange={(event) => setSelectedLanguage(event.target.value)}
+        >
+          {languages.map((language) => (
+            <option key={language} value={language}>
+              {language}
+            </option>
+          ))}
+        </select>
+      </div>
     </div>
   )}
 </div>
@@ -253,15 +486,40 @@ const handleTouchEnd = () => {
   <div className="swipe-label pass-label">✕ PASS</div>
 )}
   
-          <div className="profile-photo">
-              <div className="profile-placeholder">
-                {(currentProfile.name || "V").charAt(0).toUpperCase()}
-              </div>
+        
+<div className="profile-photo">
+  {currentProfile.photo_url ? (
+    <img
+      src={currentProfile.photo_url}
+      alt={currentProfile.name || "VibeMeet member"}
+      className="profile-image"
+    />
+  ) : (
+    <div className="profile-placeholder">
+      {(currentProfile.name || "V").charAt(0).toUpperCase()}
+    </div>
+  )}
 
-              <div className="online-badge">
-                <span></span> On VibeMeet
-              </div>
-            </div>
+  <div className="profile-photo-overlay">
+    <div className="profile-stat">
+      👤 {currentProfile.name || "Member"}
+    </div>
+
+    <div className="profile-stat">
+      ❤️ VibeMeet
+    </div>
+
+    {currentProfile.city && (
+      <div className="profile-stat">
+        📍 {currentProfile.city}
+      </div>
+    )}
+  </div>
+
+  <div className="online-badge">
+    <span></span> On VibeMeet
+  </div>
+</div>
 
             <div className="profile-info">
               <div>
