@@ -3,17 +3,15 @@ import { ArrowLeft, ArrowRight, Heart, Sparkles, Gamepad2, MessageCircle, User, 
 import { supabase } from "./supabase";
 import "./App.css";
 
-function HomeScreen() {
+function HomeScreen({ selectedCountry, setSelectedCountry, selectedLanguage }) {
   const [profiles, setProfiles] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
   const [swipeStart, setSwipeStart] = useState(null);
   const [swipeOffset, setSwipeOffset] = useState(0);
-const [selectedCountry, setSelectedCountry] = useState("Nigeria");
 const [showLocationMenu, setShowLocationMenu] = useState(false);
 const [countrySearch, setCountrySearch] = useState("");
-const [selectedLanguage, setSelectedLanguage] = useState("English");
 
   const languages = [
     "English",
@@ -650,6 +648,24 @@ function App() {
   const [screen, setScreen] = useState(() => localStorage.getItem("vibemeet_screen") || "welcome");
   const [signupStep, setSignupStep] = useState(1);
 
+  const [selectedCountry, setSelectedCountry] = useState(
+    () => localStorage.getItem("vibemeet_country") || ""
+  );
+
+  const [selectedLanguage, setSelectedLanguage] = useState(
+    () => localStorage.getItem("vibemeet_language") || "English"
+  );
+
+  useEffect(() => {
+    if (selectedCountry) {
+      localStorage.setItem("vibemeet_country", selectedCountry);
+    }
+  }, [selectedCountry]);
+
+  useEffect(() => {
+    localStorage.setItem("vibemeet_language", selectedLanguage);
+  }, [selectedLanguage]);
+
 const [form, setForm] = useState({
   name: "",
   birthday: "",
@@ -712,7 +728,13 @@ alert("VibeMeet account created successfully! ❤️");
 
 
   if (screen === "home") {
-    return <HomeScreen />;
+    return (
+      <HomeScreen
+        selectedCountry={selectedCountry}
+        setSelectedCountry={setSelectedCountry}
+        selectedLanguage={selectedLanguage}
+      />
+    );
   }
 
   if (screen === "welcome") {
