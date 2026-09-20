@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { ArrowLeft, ArrowRight, Heart, Sparkles, Gamepad2, MessageCircle, User, Bell, Compass } from "lucide-react";
+import { ArrowLeft, ArrowRight, Heart, Sparkles, Gamepad2, MessageCircle, User, Bell, Compass, Search } from "lucide-react";
 import { supabase } from "./supabase";
 import "./App.css";
 
