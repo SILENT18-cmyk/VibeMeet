@@ -620,26 +620,31 @@ onClick={() => handleSwipe("like")}              >
       </div>
 
       <nav className="bottom-nav">
-        <button className="active">
-          <Compass size={23} />
-          <span>Discover</span>
-        </button>
+      <button className="active">
+        <Compass size={23} />
+        <span>Discover</span>
+      </button>
 
-        <button>
-          <Gamepad2 size={23} />
-          <span>Games</span>
-        </button>
+      <button onClick={() => setScreen("explore")}>
+        <Search size={23} />
+        <span>Explore</span>
+      </button>
 
-        <button>
-          <MessageCircle size={23} />
-          <span>Messages</span>
-        </button>
+      <button>
+        <Gamepad2 size={23} />
+        <span>Games</span>
+      </button>
 
-        <button>
-          <User size={23} />
-          <span>Profile</span>
-        </button>
-      </nav>
+      <button>
+        <MessageCircle size={23} />
+        <span>Messages</span>
+      </button>
+
+      <button>
+        <User size={23} />
+        <span>Profile</span>
+      </button>
+    </nav>
 
     </main>
   );
