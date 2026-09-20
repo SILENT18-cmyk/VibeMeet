@@ -999,6 +999,8 @@ alert("VibeMeet account created successfully! ❤️");
         selectedCountry={selectedCountry}
         setSelectedCountry={setSelectedCountry}
         selectedLanguage={selectedLanguage}
+        setSelectedLanguage={setSelectedLanguage}
+        setScreen={setScreen}
       />
     );
   }
