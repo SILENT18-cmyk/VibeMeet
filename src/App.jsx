@@ -3,7 +3,7 @@ import { ArrowLeft, ArrowRight, Heart, Sparkles, Gamepad2, MessageCircle, User, 
 import { supabase } from "./supabase";
 import "./App.css";
 
-function HomeScreen({ selectedCountry, setSelectedCountry, selectedLanguage }) {
+function HomeScreen({ selectedCountry, setSelectedCountry, selectedLanguage, setSelectedLanguage, setScreen }) {
   const [profiles, setProfiles] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [loading, setLoading] = useState(true);
@@ -644,6 +644,116 @@ onClick={() => handleSwipe("like")}              >
     </main>
   );
 }
+
+function ExploreScreen({
+  selectedCountry,
+  setSelectedCountry,
+  selectedLanguage,
+  setSelectedLanguage,
+  setScreen,
+}) {
+  const [search, setSearch] = useState("");
+
+  return (
+    <div className="app-shell">
+      <header className="top-bar">
+        <div>
+          <div className="brand">VibeMeet</div>
+          <div className="tagline">Find your vibe</div>
+        </div>
+
+        <div className="explore-controls">
+          <select
+            value={selectedLanguage}
+            onChange={(e) => setSelectedLanguage(e.target.value)}
+          >
+            <option value="English">English</option>
+            <option value="Spanish">Español</option>
+            <option value="French">Français</option>
+            <option value="Portuguese">Português</option>
+            <option value="German">Deutsch</option>
+            <option value="Italian">Italiano</option>
+            <option value="Arabic">العربية</option>
+          </select>
+
+          <select
+            value={selectedCountry}
+            onChange={(e) => setSelectedCountry(e.target.value)}
+          >
+            <option value="">Any country</option>
+            <option value="Nigeria">🇳🇬 Nigeria</option>
+            <option value="United States">🇺🇸 United States</option>
+            <option value="United Kingdom">🇬🇧 United Kingdom</option>
+            <option value="Canada">🇨🇦 Canada</option>
+            <option value="Spain">🇪🇸 Spain</option>
+            <option value="France">🇫🇷 France</option>
+            <option value="Germany">🇩🇪 Germany</option>
+            <option value="Italy">🇮🇹 Italy</option>
+            <option value="Brazil">🇧🇷 Brazil</option>
+            <option value="South Africa">🇿🇦 South Africa</option>
+            <option value="Ghana">🇬🇭 Ghana</option>
+            <option value="Kenya">🇰🇪 Kenya</option>
+          </select>
+        </div>
+      </header>
+
+      <main className="explore-page">
+        <div className="explore-heading">
+          <h1>Explore</h1>
+          <p>
+            {selectedCountry
+              ? `Discover people in ${selectedCountry}`
+              : "Discover people from anywhere"}
+          </p>
+        </div>
+
+        <input
+          className="country-search"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          placeholder="Search people..."
+        />
+
+        <div className="explore-empty">
+          <div className="explore-icon">💜</div>
+          <h2>People are waiting to meet you</h2>
+          <p>
+            Your Explore feed is ready. More profiles will appear here as
+            people join VibeMeet.
+          </p>
+        </div>
+      </main>
+
+      <nav className="bottom-nav">
+        <button onClick={() => setScreen("home")}>
+          <Compass size={23} />
+          <span>Discover</span>
+        </button>
+
+        <button className="active">
+          <Search size={23} />
+          <span>Explore</span>
+        </button>
+
+        <button>
+          <Gamepad2 size={23} />
+          <span>Games</span>
+        </button>
+
+        <button>
+          <MessageCircle size={23} />
+          <span>Messages</span>
+        </button>
+
+        <button>
+          <User size={23} />
+          <span>Profile</span>
+        </button>
+      </nav>
+    </div>
+  );
+}
+
 function App() {
   const [screen, setScreen] = useState(() => localStorage.getItem("vibemeet_screen") || "welcome");
   const [signupStep, setSignupStep] = useState(1);
@@ -726,6 +836,18 @@ alert("VibeMeet account created successfully! ❤️");
   setSignupStep(3);
 };
 
+
+  if (screen === "explore") {
+    return (
+      <ExploreScreen
+        selectedCountry={selectedCountry}
+        setSelectedCountry={setSelectedCountry}
+        selectedLanguage={selectedLanguage}
+        setSelectedLanguage={setSelectedLanguage}
+        setScreen={setScreen}
+      />
+    );
+  }
 
   if (screen === "home") {
     return (
