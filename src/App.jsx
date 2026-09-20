@@ -657,13 +657,78 @@ function ExploreScreen({
   setSelectedLanguage,
   setScreen,
 }) {
+  const [people, setPeople] = useState([]);
   const [search, setSearch] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const calculateAge = (birthday) => {
+    if (!birthday) return "";
+
+    const birthDate = new Date(birthday);
+    const today = new Date();
+
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const monthDifference = today.getMonth() - birthDate.getMonth();
+
+    if (
+      monthDifference < 0 ||
+      (monthDifference === 0 && today.getDate() < birthDate.getDate())
+    ) {
+      age--;
+    }
+
+    return age;
+  };
+
+  useEffect(() => {
+    const loadPeople = async () => {
+      setLoading(true);
+      setErrorMessage("");
+
+      const { data: userData } = await supabase.auth.getUser();
+      const currentUserId = userData?.user?.id;
+
+      let query = supabase
+        .from("profiles")
+        .select(
+          "id, name, birthday, gender, interested_in, photo_url, bio, country, city, interests"
+        )
+        .order("created_at", { ascending: false });
+
+      if (currentUserId) {
+        query = query.neq("id", currentUserId);
+      }
+
+      if (selectedCountry && selectedCountry !== "Any country") {
+        query = query.eq("country", selectedCountry);
+      }
+
+      const { data, error } = await query;
+
+      if (error) {
+        console.error("Could not load Explore profiles:", error);
+        setErrorMessage(error.message);
+        setPeople([]);
+      } else {
+        setPeople(data || []);
+      }
+
+      setLoading(false);
+    };
+
+    loadPeople();
+  }, [selectedCountry]);
+
+  const filteredPeople = people.filter((person) =>
+    (person.name || "").toLowerCase().includes(search.toLowerCase())
+  );
 
   return (
     <div className="app-shell">
       <header className="top-bar">
         <div>
-          <div className="brand">VibeMeet</div>
+          <div className="brand">VibeMeet ❤️</div>
           <div className="tagline">Find your vibe</div>
         </div>
 
@@ -671,6 +736,7 @@ function ExploreScreen({
           <select
             value={selectedLanguage}
             onChange={(e) => setSelectedLanguage(e.target.value)}
+            aria-label="Language"
           >
             <option value="English">English</option>
             <option value="Spanish">Español</option>
@@ -679,13 +745,17 @@ function ExploreScreen({
             <option value="German">Deutsch</option>
             <option value="Italian">Italiano</option>
             <option value="Arabic">العربية</option>
+            <option value="Yoruba">Yorùbá</option>
+            <option value="Igbo">Igbo</option>
+            <option value="Hausa">Hausa</option>
           </select>
 
           <select
             value={selectedCountry}
             onChange={(e) => setSelectedCountry(e.target.value)}
+            aria-label="Country"
           >
-            <option value="">Any country</option>
+            <option value="">🌎 Any country</option>
             <option value="Nigeria">🇳🇬 Nigeria</option>
             <option value="United States">🇺🇸 United States</option>
             <option value="United Kingdom">🇬🇧 United Kingdom</option>
@@ -716,17 +786,86 @@ function ExploreScreen({
           className="country-search"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          placeholder="Search people..."
+          placeholder="🔎 Search people..."
+          aria-label="Search people"
         />
 
-        <div className="explore-empty">
-          <div className="explore-icon">💜</div>
-          <h2>People are waiting to meet you</h2>
-          <p>
-            Your Explore feed is ready. More profiles will appear here as
-            people join VibeMeet.
-          </p>
-        </div>
+        {loading ? (
+          <div className="explore-status">
+            <div className="explore-icon">💜</div>
+            <h2>Finding people for you...</h2>
+            <p>Loading real VibeMeet members.</p>
+          </div>
+        ) : errorMessage ? (
+          <div className="explore-status">
+            <div className="explore-icon">⚠️</div>
+            <h2>Could not load people</h2>
+            <p>{errorMessage}</p>
+          </div>
+        ) : filteredPeople.length === 0 ? (
+          <div className="explore-status">
+            <div className="explore-icon">💜</div>
+            <h2>No people found</h2>
+            <p>
+              Try another country or search. New VibeMeet members will appear
+              here automatically.
+            </p>
+          </div>
+        ) : (
+          <div className="explore-grid">
+            {filteredPeople.map((person) => {
+              const age = calculateAge(person.birthday);
+
+              return (
+                <article className="explore-person-card" key={person.id}>
+                  <div className="explore-person-photo">
+                    {person.photo_url ? (
+                      <img
+                        src={person.photo_url}
+                        alt={person.name || "VibeMeet member"}
+                      />
+                    ) : (
+                      <div className="explore-person-placeholder">
+                        {(person.name || "V").charAt(0).toUpperCase()}
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="explore-person-info">
+                    <h2>
+                      {person.name || "VibeMeet Member"}{" "}
+                      <span className="verified-badge">✓</span>
+                    </h2>
+
+                    <p className="explore-person-meta">
+                      {age ? `${age} years old` : "New here"}
+                      {person.city ? ` • ${person.city}` : ""}
+                    </p>
+
+                    {person.country && (
+                      <p className="explore-person-country">
+                        📍 {person.country}
+                      </p>
+                    )}
+
+                    {person.bio && (
+                      <p className="explore-person-bio">{person.bio}</p>
+                    )}
+
+                    {Array.isArray(person.interests) &&
+                      person.interests.length > 0 && (
+                        <div className="explore-person-tags">
+                          {person.interests.slice(0, 4).map((interest) => (
+                            <span key={interest}>✨ {interest}</span>
+                          ))}
+                        </div>
+                      )}
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+        )}
       </main>
 
       <nav className="bottom-nav">
